@@ -4,16 +4,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>Notifications - Ready Bootstrap Dashboard</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-	<link rel="stylesheet" href="assets/css/ready.css">
-	<link rel="stylesheet" href="assets/css/demo.css">
+	<link rel="stylesheet" href="{{ asset('assets/css/ready.css')}}">
+	<link rel="stylesheet" href="{{ asset('assets/css/demo.css')}}">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 </head>
 <body style="background-color:#F7F9FB">
 	<div class="wrapper">
 		<div class="main-header">
 			<div class="logo-header">
-				<a href="{{route('index')}}" class="logo">
+				<a href="{{route('Home')}}" class="logo">
 					dailyShop
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,22 +104,34 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span >{{Session::get('name')}}</span></span> </a>
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> 
+							@if(Session::get('picture')=='default.jpg')
+								<img src="assets/img/{{ Session::get('picture') }}" alt="user-img" width="36" class="img-circle">
+							@else
+								<img src="data:image/png;base64, {{ Session::get('picture') }}" alt="user-img" width="36" class="img-circle">
+							@endif
+							<span >{{Session::get('name')}}</span></span> </a>
 							<ul class="dropdown-menu dropdown-user">
 								<li>
 									<div class="user-box">
-										<div class="u-img"><img src="assets/img/profile.jpg" alt="user"></div>
+										<div class="u-img">
+										@if(Session::get('picture')=='default.jpg')
+											<img src="assets/img/{{ Session::get('picture') }}" alt="user">
+										@else
+											<img src="data:image/png;base64, {{ Session::get('picture') }}" alt="user">
+										@endif
+										</div>
 										<div class="u-text">
 											<h4>{{Session::get('name')}}</h4>
 											<p class="text-muted">{{Session::get('email')}}</p><a href="{{route('ViewProfile')}}" class="btn btn-rounded btn-primary btn-sm">View Profile</a></div>
 										</div>
 									</li>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#"><i class="ti-user"></i> My Profile</a>
+									<a class="dropdown-item" href="{{route('ViewProfile')}}"><i class="ti-user"></i> My Profile</a>
 									<a class="dropdown-item" href="#"></i> My Balance</a>
 									<a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="{{route('ProfileSettings')}}"><i class="ti-settings"></i> Account Setting</a>
+									<a class="dropdown-item" href="{{route('ProfileSettings')}}"><i class="ti-settings"></i> Account Settings</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="{{route('logout')}}"><i class="fa fa-power-off"></i> Logout</a>
 								</ul>
@@ -132,7 +145,11 @@
 				<div class="scrollbar-inner sidebar-wrapper">
 					<div class="user">
 						<div class="photo">
-							<img src="assets/img/profile.jpg">
+							@if(Session::get('picture')=='default.jpg')
+							<img src="assets/img/{{ Session::get('picture') }}">
+							@else
+							<img src="data:image/png;base64, {{ Session::get('picture') }}">
+							@endif
 						</div>
 						<div class="info">
 							<a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -147,17 +164,17 @@
 							<div class="collapse in" id="collapseExample" aria-expanded="true" style="">
 								<ul class="nav">
 									<li>
-										<a href="#profile">
+										<a href="{{route('ViewProfile')}}">
 											<span class="link-collapse">My Profile</span>
 										</a>
 									</li>
 									<li>
-										<a href="#edit">
+										<a href="{{route('ProfileSettings')}}">
 											<span class="link-collapse">Edit Profile</span>
 										</a>
 									</li>
 									<li>
-										<a href="#settings">
+										<a href="#">
 											<span class="link-collapse">Settings</span>
 										</a>
 									</li>
@@ -167,25 +184,25 @@
 					</div>
 					<ul class="nav">
 						<li class="nav-item">
-							<a href="index.html">
+							<a href="{{route('AddCategory')}}">
 								<i class="la la-dashboard"></i>
 								<p>Add Category</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="components.html">
+							<a href="{{route('CustomizeCategory', ['id' => 0])}}">
 								<i class="la la-table"></i>
 								<p>Customize Category</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="forms.html">
+							<a href="#">
 								<i class="la la-keyboard-o"></i>
 								<p>Add Product</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="tables.html">
+							<a href="#">
 								<i class="la la-th"></i>
 								<p>Customize Product</p>
 							</a>
@@ -281,45 +298,19 @@
 		</div>
 	</div>
 </body>
-<script src="assets/js/core/jquery.3.2.1.min.js"></script>
-<script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script src="assets/js/core/popper.min.js"></script>
-<script src="assets/js/core/bootstrap.min.js"></script>
-<script src="assets/js/plugin/chartist/chartist.min.js"></script>
-<script src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
-<script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-<script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-<script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
-<script src="assets/js/plugin/chart-circle/circles.min.js"></script>
-<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-<script src="assets/js/ready.min.js"></script>
-<script>
-	$('#displayNotif').on('click', function(){
-		var placementFrom = $('#notify_placement_from option:selected').val();
-		var placementAlign = $('#notify_placement_align option:selected').val();
-		var state = $('#notify_state option:selected').val();
-		var style = $('#notify_style option:selected').val();
-		var content = {};
+<script src="{{asset('assets/js/core/jquery.3.2.1.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>
+<script src="{{asset('assets/js/core/popper.min.js')}}"></script>
+<script src="{{('assets/js/core/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/chartist/chartist.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/jquery-mapael/jquery.mapael.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/jquery-mapael/maps/world_countries.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/chart-circle/circles.min.js')}}"></script>
+<script src="{{asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')}}"></script>
+<script src="{{asset('assets/js/ready.min.js')}}"></script>
+<script src="{{asset('assets/js/demo.js')}}"></script>
 
-		content.message = 'Turning standard Bootstrap alerts into "notify" like notifications';
-		content.title = 'Bootstrap notify';
-		if (style == "withicon") {
-			content.icon = 'la la-bell';
-		} else {
-			content.icon = 'none';
-		}
-		content.url = 'index.html';
-		content.target = '_blank';
-
-		$.notify(content,{
-			type: state,
-			placement: {
-				from: placementFrom,
-				align: placementAlign
-			},
-			time: 1000,
-		});
-	});
-</script>
 </html>

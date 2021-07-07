@@ -1,10 +1,9 @@
 @extends('layouts.AdminLayout')
 @section('content')
     <a style="text-decoration:none" href="{{route('Home')}}">Home &nbsp </a>><a style="pointer-events: none;" href="{{route('ProfileSettings')}}">&nbsp Profile</a>
-    <!-- <div style="float:right">
-        <a class="btn btn-info" href="{{route('UploadPhoto')}}">Change Profile Photo</a> |
-        <a class="btn btn-primary" href="{{route('ChangePassword')}}">Change Password</a>
-    </div> -->
+    <div style="float:right">
+        <a class="btn btn-info rounded-0" href="{{route('Home')}}">Go To Home</a>
+    </div>
     <br>
     <h4 style="margin-top:15px; margin-bottom:20px">Profile</h4>
     <div class="row">
@@ -13,7 +12,7 @@
                 <div class="card-header">
                     <div class="card-title">
                         Profile
-                        <a class="btn btn-primary" href="{{route('ProfileSettings')}}" style="float:right">Edit</a>
+                        <a class="btn btn-primary rounded-0" href="{{route('ProfileSettings')}}" style="float:right">Edit</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -33,10 +32,12 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <div class="form-group">
-                                <img src="assets/img/profile.jpg" class="img-thumbnail rounded-circle" style="height:80%; width:80%" alt="...">
+                            @if($user['picture']=="default.jpg")
+                                <img src="assets/img/{{ $user['picture'] }}" class="img-thumbnail rounded-circle" style="height:90%; width:80%" alt="...">
+                            @else
+                                <img src="data:image/png;base64, {{ $user['picture'] }}" class="img-thumbnail rounded-circle" style="height:90%; width:80%" alt="...">
                                 <!-- <button class="btn btn-primary row justify-content-center" style="float:right; border-radius: 35px;">Change Photo</button> -->
-                            </div>
+                            @endif
                             <!-- <div class="form-group" style="text-align:center; color:black">
                                 <button class="btn btn-warning">Change</button>
                             </div> -->

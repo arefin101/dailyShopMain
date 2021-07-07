@@ -18,8 +18,8 @@ class UserAuthController extends Controller
     function registered(Request $request){
 
         $request->validate([
-            'userName'=>'required|unique:customers',
-            'email'=>'required|email|unique:customers',
+            'userName'=>'required|unique:users',
+            'email'=>'required|email|unique:users',
             'password'=>[
                 'required',
                 'string',
@@ -48,6 +48,15 @@ class UserAuthController extends Controller
         ]
     );
 
+        $user=new User;
+
+        $user->userName=$request->userName;
+        $user->email=$request->email;
+        $user->userType="Customer";
+        $user->password=Hash::make($request->password);
+
+        $userQuery = $user->save();
+
         $customer=new Customer;
 
         $customer->userName=$request->userName;
@@ -61,17 +70,10 @@ class UserAuthController extends Controller
 
         $customerQuery = $customer->save();
 
-        $user=new User;
-
-        $user->userName=$request->userName;
-        $user->email=$request->email;
-        $user->userType="Customer";
-        $user->password=Hash::make($request->password);
-
-        $userQuery = $user->save();
+        $request->session()->put('LoggedUser', $user->userName);
 
         if($customerQuery && $userQuery){
-            return redirect()->route("Home");
+            return redirect()->route("index");
         }else{
             return back()->with('fail','Something went wrong');
         }
@@ -91,13 +93,12 @@ class UserAuthController extends Controller
                     ->orWhere('email', '=', $request->user)
                     ->first();
 
-        if($user->userType=='Admin'){
-            $userbytype= Admin::where('userName', '=', $request->user)
-                ->orWhere('email', '=', $request->user)
-                ->first();
-        }
-
         if($user){
+            if($user->userType=='Admin'){
+                $userbytype= Admin::where('userName', '=', $request->user)
+                    ->orWhere('email', '=', $request->user)
+                    ->first();
+            }
             if(Hash::check($request->password, $user->password)){
                 //return $user->userType;
                 if($user->userType=="Admin"){
@@ -105,6 +106,7 @@ class UserAuthController extends Controller
                     $request->session()->put('name', $userbytype->name);
                     $request->session()->put('email', $user->email);
                     $request->session()->put('userType', $user->userType);
+                    $request->session()->put('picture', $userbytype->picture);
                     return redirect()->route('Home');
                 }else if($user->userType=="Customer"){
                     $request->session()->put('LoggedUser', $user->userName);

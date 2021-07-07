@@ -17,7 +17,10 @@ Route::middleware('IsLogged')->group(function () {
     Route::get('viewprofile', [AdminPannelController::class, 'ViewProfile'])->name('ViewProfile');
     Route::post('Update_Profile', [AdminPannelController::class, 'UpdateProfile'])->name('UpdateProfile');
     Route::Get('upload_photo', [AdminPannelController::class, 'UploadPhoto'])->name('UploadPhoto');
-    Route::Post('change_photo', [AdminPannelController::class, 'UploadedPhoto'])->name('UploadedPhoto');
+    Route::Post('upload_photo', [AdminPannelController::class, 'UploadedPhoto'])->name('UploadedPhoto');
+    Route::Get('add_category', [AdminPannelController::class, 'AddCategory'])->name('AddCategory');
+    Route::Post('added_category', [AdminPannelController::class, 'AddedCategory'])->name('AddedCategory');
+    Route::Get('customize_category', [AdminPannelController::class, 'CustomizeCategory'])->name('CustomizeCategory');
 });
 
 Route::middleware('AllreadyLoggedin')->group(function(){

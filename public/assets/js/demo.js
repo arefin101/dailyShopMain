@@ -14,24 +14,12 @@ Circles.create({
 	styleText:    true
 })
 
-$.notify({
-	icon: 'la la-bell',
-	title: 'Bootstrap notify',
-	message: 'Turning standard Bootstrap alerts into "notify" like notifications',
-},{
-	type: 'success',
-	placement: {
-		from: "bottom",
-		align: "right"
-	},
-	time: 1000,
-});
 
 // monthlyChart
 
 Chartist.Pie('#monthlyChart', {
-	labels: ['50%', '20%', '30%'],
-	series: [50, 20, 30]
+	labels: ['male%', 'female%'],
+	series: [45, 55]
 }, {
 	plugins: [
 	Chartist.plugins.tooltip()
@@ -59,7 +47,6 @@ var dataSales = {
 	labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 	series: [
 	[5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
-	[3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
 	]
 }
 

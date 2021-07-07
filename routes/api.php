@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('getCategory', [CategoryApiController::class, 'GetCategory']);
+Route::put('updateCategory/{id}', [CategoryApiController::class, 'UpdateCategory']);
+Route::delete('deleteCategory/{id}', [CategoryApiController::class, 'DeleteCategory']);

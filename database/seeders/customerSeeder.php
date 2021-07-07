@@ -17,6 +17,7 @@ class customerSeeder extends Seeder
     public function run()
     {
         DB::table('customers')->insert([
+            'customerId' => 21,
             'userName' => 'rafiq101',
             'email' => 'rafiquzzaman910@gmail.com',
             'phone' => '01911927497',
@@ -27,6 +28,7 @@ class customerSeeder extends Seeder
             'userType' => 'customer',
         ]);
         DB::table('customers')->insert([
+            'customerId' => 22,
             'userName' => 'bipasa101',
             'email' => 'bipasa0@gmail.com',
             'phone' => '01911212155',

@@ -5,8 +5,8 @@
     <a style="text-decoration:none" href="{{route('ProfileSettings')}}">&nbsp Account Settings &nbsp</a>>
     <a style="pointer-events: none" href="">&nbsp Change Password</a>
     <div style="float:right">
-        <a class="btn btn-primary" href="{{route('ProfileSettings')}}">Back</a> |
-        <a class="btn btn-primary" href="{{route('Home')}}">Home</a>
+        <a class="btn btn-info rounded-0" href="{{route('ProfileSettings')}}">Account Settings</a> &nbsp
+        <a class="btn btn-primary rounded-0" href="{{route('Home')}}">Go To Home</a>
     </div>
     <br>
     <h4 style="margin-top:15px; margin-bottom:20px">Account Settings</h4>
