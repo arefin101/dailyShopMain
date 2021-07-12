@@ -25,16 +25,10 @@
 			<nav class="navbar navbar-header navbar-expand-lg">
 				<div class="container-fluid">
 					
-					<form class="navbar-left navbar-form nav-search mr-md-3" action="">
-						<div class="input-group">
-							<input type="text" placeholder="Search ..." class="form-control">
-							<div class="input-group-append">
-								<span class="input-group-text">
-									<i class="la la-search search-icon"></i>
-								</span>
-							</div>
-						</div>
-					</form>
+
+					<script async src="https://cse.google.com/cse.js?cx=3ea9af1bf95fbff0d"></script>
+					<div style="width:400px; height:50px"><div class="gcse-search"></div></div>
+
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 						<li class="nav-item dropdown hidden-caret">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -184,26 +178,32 @@
 					</div>
 					<ul class="nav">
 						<li class="nav-item">
+							<a href="{{route('Home')}}">
+								<i class="la la-home"></i>
+								<p>Home</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="{{route('AddCategory')}}">
-								<i class="la la-dashboard"></i>
+								<i class="la la-plus"></i>
 								<p>Add Category</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="{{route('CustomizeCategory', ['id' => 0])}}">
-								<i class="la la-table"></i>
+								<i class="la la-wrench"></i>
 								<p>Customize Category</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#">
-								<i class="la la-keyboard-o"></i>
+							<a href="{{route('AddProduct')}}">
+								<i class="la la-plus"></i>
 								<p>Add Product</p>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="#">
-								<i class="la la-th"></i>
+							<a href="{{route('CustomizeProduct' , ['id' => 0] )}}">
+								<i class="la la-wrench"></i>
 								<p>Customize Product</p>
 							</a>
 						</li>

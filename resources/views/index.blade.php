@@ -79,7 +79,7 @@
                 <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn" href="#" id="dropdownMenu1">
-                      <img src="img/flag/bd.jpg" alt="english flag">BD
+                      <img src="img/flag/bd.jpg" alt="english flag">বাংলাদেশ
                       <!-- <span class="caret"></span> -->
                     </a>
                     
@@ -91,7 +91,7 @@
                 <div class="aa-currency">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <i class="fa-bdt (fa-taka - Bangladeshi Currency)"></i>TAKA
+                    ৳ &nbsp TAKA
                       <!-- <span class="caret"></span> -->
                     </a>
                   </div>
@@ -499,10 +499,10 @@
                         <!-- start single product item -->
                         <li>
                           <figure>
-                            <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                            <a class="aa-product-img" href="{{ route('ProductDetail') }}"><img src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                            <a class="aa-add-card-btn"href="{{ route('ProductDetail') }}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                               <figcaption>
-                              <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
+                              <h4 class="aa-product-title"><a href="{{ route('ProductDetail') }}">Polo T-Shirt</a></h4>
                               <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
                             </figcaption>
                           </figure>                        

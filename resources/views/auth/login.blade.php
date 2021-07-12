@@ -28,11 +28,17 @@
                                     <span class="text-danger" id="userError"></span>
                                     <p id="user" class="text-danger"></p>
                                     
-                                    <label for="">Password<span>*</span></label>
-                                    <input type="password" class="form-control" placeholder="Password" name="password" id="password">
-                                    <span class="text-danger">@error('password') {{ $message }} @enderror</span>
-                                    <span class="text-danger" id="passError"></span>
-                                    
+                                    <div class="form-group">
+                                        <label for="">Password<span>*</span></label>
+                                        <div class="input-group">
+                                            <input type="password" name="password" id="password" class="form-control pwd" placeholder="password">
+                                            <span class="input-group-btn">
+                                                <button class="btn reveal" style="border-radius:0% 10% 10% 0%;background-color:white; padding-top:9.15px; border-color:#b8b8b8" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
+                                            </span>          
+                                        </div>
+                                        <span class="text-danger">@error('password') {{ $message }} @enderror</span>
+                                        <span class="text-danger" id="passwordError"></span>
+                                    </div>	
                                     <div style="text-align:right"><a class="text-primary" href="#">Forgotten password?</a></div>
                                     </div>
                                     <div class="col-sm-6">
@@ -84,6 +90,15 @@
             return false;
         }
     });
+
+    $(".reveal").on('click',function() {
+                var $pwd = $(".pwd");
+                if ($pwd.attr('type') === 'password') {
+                    $pwd.attr('type', 'text');
+                } else {
+                    $pwd.attr('type', 'password');
+                }
+            });
 
 </script>
 

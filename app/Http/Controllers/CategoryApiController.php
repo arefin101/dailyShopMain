@@ -37,4 +37,15 @@ class CategoryApiController extends Controller
 
     }
 
+    function SearchCategory(Request $req){
+        $query = $req->get('query');
+        if($query!=""){
+            return Category::where('categoryName', 'like', '%'.$query.'%')->get();
+        }else{
+            $category = Category::take(5)->get();
+            return $category;
+        }
+
+    }
+
 }

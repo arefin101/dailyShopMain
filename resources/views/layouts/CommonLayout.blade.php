@@ -69,7 +69,7 @@
                 <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <img src="img/flag/bd.jpg" alt="english flag">BD
+                      <img src="img/flag/bd.jpg" alt="english flag">বাংলাদেশ
                     </a>
                   </div>
                 </div>
@@ -79,7 +79,7 @@
                 <div class="aa-currency">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <i class=""></i>TAKA
+                      ৳ &nbsp Taka
                     </a>
                   </div>
                 </div>
