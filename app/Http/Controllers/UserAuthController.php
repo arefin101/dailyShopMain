@@ -7,9 +7,120 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Customer;
+use Socialite;
+use Exception;
+use Auth;
 
 class UserAuthController extends Controller
 {
+
+
+    public function facebookRedirect()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function loginWithFacebook(Request $request)
+    {
+        try {
+    
+            $user = Socialite::driver('facebook')->stateless()->user();
+            $isUser = User::where('userName', $user->id)
+                    ->orWhere('email', $user->email)
+                    ->first();
+            
+            $userName=(string)$user->id;
+            if($isUser){
+                //return "sds";
+                $request->session()->put('LoggedUser', $user->name);
+                $request->session()->put('userType', 'Customer');
+                $request->session()->put('userNames', $userName);
+                if(session()->has('idd')){
+                    return redirect()->route('ProductDetail' ,['id' => session()->get('idd'), 'userId' => session()->get('LoggedUser') ]);
+                }
+                return redirect()->route('index');
+            }else{
+                $userNamebb= $user->name;
+                $user = User::create([
+                    'userName' => $userName,
+                    'email' => $user->email,
+                    'userType' => 'Customer',
+                    'password'=> Hash::make('1111'),
+                ]);
+                $customer = Customer::create([
+                    'userName' => $userName,
+                    'email' => $user->email,
+                    'userType' => 'Customer',
+                ]);
+                $request->session()->put('userType', 'Customer');
+                $request->session()->put('LoggedUser', $userNamebb);
+                $request->session()->put('userNames', $userName);
+                if(session()->has('idd')){
+                    return redirect()->route('ProductDetail' ,['id' => session()->get('idd'), 'userId' => session()->get('LoggedUser') ]);
+                }
+                return redirect()->route('index');
+            }
+    
+        } catch (Exception $exception) {
+            dd($exception->getMessage());
+        }
+    }
+
+
+
+    public function googleRedirect(Request $request)
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function loginWithGoogle(Request $request)
+    {
+        try {
+    
+            $user = Socialite::driver('google')->stateless()->user();
+            //return $user->name;
+            $isUser = User::where('userName', $user->id)
+                    ->orWhere('email', $user->email)
+                    ->first();
+
+            $userName=(string)$user->id;
+            if($isUser){
+                //return "sds";
+                $request->session()->put('LoggedUser', $user->name);
+                $request->session()->put('userType', 'Customer');
+                $request->session()->put('userNames', $userName);
+                if(session()->has('idd')){
+                    return redirect()->route('ProductDetail' ,['id' => session()->get('idd'), 'userId' => session()->get('LoggedUser') ]);
+                }
+                return redirect()->route('index');
+            }else{
+                $userNamebb= $user->name;
+                $user = User::create([
+                    'userName' => $userName,
+                    'email' => $user->email,
+                    'userType' => 'Customer',
+                    'password'=> Hash::make('1111'),
+                ]);
+                $customer = Customer::create([
+                    'userName' => $userName,
+                    'email' => $user->email,
+                    'userType' => 'Customer',
+                ]);
+                $request->session()->put('userType', 'Customer');
+                $request->session()->put('LoggedUser', $userNamebb);
+                $request->session()->put('userNames', $userName);
+                if(session()->has('idd')){
+                    return redirect()->route('ProductDetail' ,['id' => session()->get('idd'), 'userId' => session()->get('LoggedUser') ]);
+                }
+                return redirect()->route('index');
+            }
+    
+        } catch (Exception $exception) {
+            dd($exception->getMessage());
+        }
+    }
+
+
     
     function register(){
         return view('auth.register');
@@ -84,6 +195,10 @@ class UserAuthController extends Controller
     }
 
     function check(Request $request){
+    
+        $idd=$request->idd;
+        $ids=$request->ids;
+        //return $request;
         $request->validate([
             'user' => 'required',
             'password' => 'required'
@@ -110,7 +225,11 @@ class UserAuthController extends Controller
                     return redirect()->route('Home');
                 }else if($user->userType=="Customer"){
                     $request->session()->put('LoggedUser', $user->userName);
-                    return redirect()->route('index');
+                    if($idd){
+                        return redirect()->route('ProductDetail' ,['id' => $ids, 'userId' => session()->get('LoggedUser') ]);
+                    }else{
+                        return redirect()->route('index');
+                    }
                 }else{
                     return back()->with('fail', 'Invalid request');
                 }

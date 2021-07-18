@@ -9,4 +9,11 @@ class Customer extends Model
 {
     protected $primaryKey = 'userName';
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'userName',
+        'email',
+        'userType',
+        'password'
+    ];
 }

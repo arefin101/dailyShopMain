@@ -79,29 +79,35 @@
                 <div class="aa-currency">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      ৳ &nbsp Taka
+                      ৳ &nbsp TAKA
                     </a>
                   </div>
                 </div>
                 <!-- / currency -->
                 <!-- start cellphone -->
                 <div class="cellphone hidden-xs">
-                  <p><span class="fa fa-phone"></span>01829747029</p>
+                  <p><span class="fa fa-phone"></span>01911927497</p>
                 </div>
                 <!-- / cellphone -->
               </div>
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="#">My Account</a></li>
-                  <li class="hidden-xs"><a href="#">Wishlist</a></li>
-                  <li class="hidden-xs"><a href="#">My Cart</a></li>
-                  <li class="hidden-xs"><a href="#">Checkout</a></li>
-                  @if (Session::get('userType') == 'Admin')
-                    <li><a href="{{route('Home')}}" data-target="#login-modal">Admin Home</a></li>
+                  @if (Session::has('LoggedUser') && Session::get('userType') == 'Customer')
+                      <li><b style="color:#2e806f">{{ Session::get('LoggedUser') }}</b></li> |
+                      <li><a href="#">My Account</a></li>
                   @endif
-                  @if (Request::path() != 'login')
-                    <li><a href="{{route('login')}}" data-target="#login-modal">Login</a></li>
+                  @if (Session::get('userType') == 'Admin')
+                    <li><a href="{{route('Home')}}" data-target="#login-modal">My Account</a></li>
+                  @endif
+                  @if (Session::has('LoggedUser'))
+                    <li class="hidden-xs"><a href="{{route('Cart')}}">My Cart</a></li>
+                    <li class="hidden-xs"><a href="{{route('CheckOut')}}">Checkout</a></li>
+                  @endif
+                  @if (!Session::has('LoggedUser'))
+                      <li><a href="{{ route('login') }}" data-target="#login-modal">Signup / Login</a></li>
+                  @elseif (Session::has('LoggedUser'))
+                      <li><a href="{{ route('logout') }}" data-target="#login-modal">Logout</a></li>
                   @endif
                 </ul>
               </div>
@@ -123,7 +129,7 @@
                 <!-- Text based logo -->
                 <a href="{{route('index')}}">
                   <span class="fa fa-shopping-cart"></span>
-                  <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                  <p>daily<strong>Shop</strong> <span></span></p>
                 </a>
                 <!-- img based logo -->
                 <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
@@ -200,113 +206,19 @@
           <div class="navbar-collapse collapse">
             <!-- Left nav -->
             <ul class="nav navbar-nav">
-              <li><a href="{{route('index')}}">Home</a></li>
-              <li><a href="#">Men <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
-                    </ul>
-                  </li>
+            
+            <li><a href="{{route('index')}}">Home</a></li>
+              @foreach( $productCategory as $item )
+              <li><a href="#"> {{$item['categoryName']}} <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                @foreach( $products as $temp )
+                  @if($temp['categoryId'] == $item['categoryId'])              
+                    <li><a href="{{ route('ProductDetail' ,['id' => $temp['productId'] ]) }}">{{ $temp['productName'] }}</a></li>
+                  @endif
+                @endforeach
                 </ul>
               </li>
-              <li><a href="#">Women <span class="caret"></span></a>
-                <ul class="dropdown-menu">  
-                  <li><a href="#">Kurta & Kurti</a></li>                                                                
-                  <li><a href="#">Trousers</a></li>              
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>                
-                  <li><a href="#">Sarees</a></li>
-                  <li><a href="#">Shoes</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>
-                      <li><a href="#">And more.. <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Rings</a></li>
-                          <li><a href="#">Earrings</a></li>
-                          <li><a href="#">Jewellery Sets</a></li>
-                          <li><a href="#">Lockets</a></li>
-                          <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                       
-                          <li><a href="#">Jeans</a></li>
-                          <li><a href="#">Polo T-Shirts</a></li>
-                          <li><a href="#">SKirts</a></li>
-                          <li><a href="#">Jackets</a></li>
-                          <li><a href="#">Tops</a></li>
-                          <li><a href="#">Make Up</a></li>
-                          <li><a href="#">Hair Care</a></li>
-                          <li><a href="#">Perfumes</a></li>
-                          <li><a href="#">Skin Care</a></li>
-                          <li><a href="#">Hand Bags</a></li>
-                          <li><a href="#">Single Bags</a></li>
-                          <li><a href="#">Travel Bags</a></li>
-                          <li><a href="#">Wallets & Belts</a></li>                        
-                          <li><a href="#">Sunglases</a></li>
-                          <li><a href="#">Nail</a></li>                       
-                        </ul>
-                      </li>                   
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#">Kids <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#">Sports</a></li>
-             <li><a href="#">Digital <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Camera</a></li>
-                  <li><a href="#">Mobile</a></li>
-                  <li><a href="#">Tablet</a></li>
-                  <li><a href="#">Laptop</a></li>                                                
-                  <li><a href="#">Accesories</a></li>                
-                </ul>
-              </li>
-              <li><a href="#">Furniture</a></li>            
-              <li><a href="#">Blog <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Blog Style 1</a></li>
-                  <li><a href="#">Blog Style 2</a></li>
-                  <li><a href="#">Blog Single</a></li>                
-                </ul>
-              </li>
-              <li><a href="#>Contact</a></li>
-              <li><a href="#">Pages <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Shop Page</a></li>
-                  <li><a href="#">Shop Single</a></li>                
-                  <li><a href="#">404 Page</a></li>                
-                </ul>
-              </li>
+              @endforeach
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -317,22 +229,7 @@
   <!-- / menu -->  
  
   <!-- catg header banner section -->
-    @if (Request::path() != 'login' && Request::path() != 'register')
-        <section id="aa-catg-head-banner">
-            <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-            <div class="aa-catg-head-banner-area">
-            <div class="container">
-            <div class="aa-catg-head-banner-content">
-                <h2>Account Page</h2>
-                <ol class="breadcrumb">
-                <li><a href="{{route('index')}}">Home</a></li>                   
-                <li class="active">Account</li>
-                </ol>
-            </div>
-            </div>
-        </div>
-        </section>
-    @endif
+    
   <!-- / catg header banner section -->
 
  <!-- Cart view section -->
@@ -357,60 +254,32 @@
         <div class="col-md-12">
           <div class="aa-footer-top-area">
             <div class="row">
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <h3>Main Menu</h3>
-                  <ul class="aa-footer-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Our Products</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <div class="aa-footer-widget">
-                    <h3>Knowledge Base</h3>
-                    <ul class="aa-footer-nav">
-                      <li><a href="#">Delivery</a></li>
-                      <li><a href="#">Returns</a></li>
-                      <li><a href="#">Services</a></li>
-                      <li><a href="#">Discount</a></li>
-                      <li><a href="#">Special Offer</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
+              <div class="col-md-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>Useful Links</h3>
                     <ul class="aa-footer-nav">
-                      <li><a href="#">Site Map</a></li>
-                      <li><a href="#">Search</a></li>
-                      <li><a href="#">Advanced Search</a></li>
-                      <li><a href="#">Suppliers</a></li>
-                      <li><a href="#">FAQ</a></li>
+                      <li><a style="color:white" href="https://heroku.com">Heroku</a></li>
+                      <li><a style="color:white" href="https://laravel.com/">Laravel Doc</a></li>
+                      <li><a style="color:white" href="https://www.google.com/maps">Google Map</a></li>
+                      <li><a style="color:white" href="https://www.aiub.edu/">AIUB</a></li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
+              <div class="col-md-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Contact Us</h3>
+                    <h3>Contact</h3>
                     <address>
-                      <p> 25 Astor Pl, NY 10003, USA</p>
-                      <p><span class="fa fa-phone"></span>+1 212-982-4589</p>
-                      <p><span class="fa fa-envelope"></span>dailyshop@gmail.com</p>
+                      <p style="color:white"> Tejgaon Dhaka-1208</p>
+                      <p style="color:white"><span style="color:white" class="fa fa-phone"></span>01911927497</p>
+                      <p><span style="color:white" class="fa fa-envelope"></span> <a style="color:white" href="mailto:arefink910@gmail.com"> arefink910@gmail.com </a></p>
                     </address>
                     <div class="aa-footer-social">
-                      <a href="#"><span class="fa fa-facebook"></span></a>
-                      <a href="#"><span class="fa fa-twitter"></span></a>
-                      <a href="#"><span class="fa fa-google-plus"></span></a>
-                      <a href="#"><span class="fa fa-youtube"></span></a>
+                      <a style="color:white" href="https://www.facebook.com/alex.marfee.1/"><span class="fa fa-facebook"></span></a>
+                      <a style="color:white" href="https://www.linkedin.com/in/shamsul-arefin-bb1a2616a/"><span class="fa fa-linkedin"></span></a>
+                      <a style="color:white" href="https://github.com/arefin101"><span class="fa fa-github"></span></a>
                     </div>
                   </div>
                 </div>
@@ -422,23 +291,7 @@
      </div>
     </div>
     <!-- footer-bottom -->
-    <div class="aa-footer-bottom">
-      <div class="container">
-        <div class="row">
-        <div class="col-md-12">
-          <div class="aa-footer-bottom-area">
-            <p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>
-            <div class="aa-footer-payment">
-              <span class="fa fa-cc-mastercard"></span>
-              <span class="fa fa-cc-visa"></span>
-              <span class="fa fa-paypal"></span>
-              <span class="fa fa-cc-discover"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
+    
   </footer>
   <!-- / footer -->
   <!-- Login Modal -->  

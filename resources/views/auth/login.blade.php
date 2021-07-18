@@ -4,8 +4,12 @@
    <div class="container">
      <div class="row">
        <div class="col-md-12">
-        <div style="margin-top:4%; margin-bottom:2.5%">  
+        <div style="margin-top:4%; margin-bottom:2.5%"> 
+        @if( Request::get('id') != 0 )
         <h4 style="text-align:center">Welcome to dailyShop! Please login.</h4>  
+        @else
+        <h4 style="text-align:center">Welcome! Please Login to continue.</h4>
+        @endif
         <br>     
             <div class="row">
               <div class="col-md-2"></div>
@@ -13,6 +17,10 @@
                         <div class="aa-myaccount-login">
                             <form class="aa-login-form" action="{{ route('check') }}" method="post" id="form" novalidate>
                                 @csrf
+                                @if(Request::has('ids') && Request::has('idd') )
+                                <input type="hidden" name='ids' value="{{Request::get('ids')}}">
+                                <input type="hidden" name='idd' value="{{Request::get('idd')}}">
+                                @endif
                                 <div class="row">
                                     <div class="col-sm-6">
                                     <div class="result">
@@ -46,13 +54,13 @@
                                     <button class="btn btn-block default" type="submit" id="do">Login</button>
                                     <hr>
                                     <div style="text-align:center">Or, login with</div>
-                                    <button class="btn btn-block btn-primary" type="submit">
+                                    <a href="{{ route('LoginWithFacebook') }}" class="btn btn-block btn-primary">
                                         <i class="fa fa-facebook" aria-hidden="true"></i>
-                                        &nbsp &nbsp Facebook</button>
-                                    <button class="btn btn-block btn-danger" type="submit">
+                                        &nbsp &nbsp Facebook</a>
+                                    <a href="{{ route('LoginWithGoogle') }}" class="btn btn-block btn-danger">
                                         <i class="fa fa-google" aria-hidden="true"></i>  
-                                        &nbsp &nbsp Google</button>
-                                    <div class="aa-register-now" style="text-align:center; margin-top:100px">
+                                        &nbsp &nbsp Google</a>
+                                    <div class="aa-register-now" style="text-align:center; margin-top:18px">
                                         Don't have an account?<a href="{{route('register')}}"><span class="text-primary">Register now!</span></a>
                                     </div>
                                     </div>

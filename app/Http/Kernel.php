@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'IsLogged' => \App\Http\Middleware\AuthCheck::class,
         'AllreadyLoggedin' => \App\Http\Middleware\AllreadyLoggedin::class,
+        'eachCartPage' => \App\Http\Middleware\eachCartPage::class
     ];
 }

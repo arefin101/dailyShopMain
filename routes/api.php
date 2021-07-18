@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryApiController;
 use App\Http\Controllers\ProductApiController;
 use App\Http\Controllers\GoogleSearchController;
+use App\Http\Controllers\CartApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,6 @@ Route::put('blockProduct/{id}', [ProductApiController::class, 'blockProduct']);
 Route::put('unblockProduct/{id}', [ProductApiController::class, 'unblockProduct']);
 Route::get('getProduct/{id}', [ProductApiController::class, 'GetProductById']);
 Route::get('searchProduct', [ProductApiController::class, 'SearchProduct']);
+
+Route::get('getCart', [CartApiController::class, 'GetCart']);
+Route::post('addToCart/{id}/{userName}', [CartApiController::class, 'AddToCart']);

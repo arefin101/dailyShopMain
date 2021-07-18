@@ -59,7 +59,11 @@
                             <label>Category</label>
                             <select class="form-control input-square" name="category">
                             @foreach($category as $item)
+                                @if( $item['categoryId'] == $product['categoryId'] )
+                                <option value="{{ $item['categoryId'] }}" selected>{{ $item['categoryName'] }}</option>
+                                @else
                                 <option value="{{ $item['categoryId'] }}">{{ $item['categoryName'] }}</option>
+                                @endif
                             @endforeach
                             </select>
                         </div>

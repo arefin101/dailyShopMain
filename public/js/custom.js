@@ -32,13 +32,13 @@ jQuery(function($){
   /*  1. CARTBOX 
   /* ----------------------------------------------------------- */
     
-     jQuery(".aa-cartbox").hover(function(){
-      jQuery(this).find(".aa-cartbox-summary").fadeIn(500);
-    }
-      ,function(){
-          jQuery(this).find(".aa-cartbox-summary").fadeOut(500);
-      }
-     );   
+    //  jQuery(".aa-cartbox").hover(function(){
+    //   jQuery(this).find(".aa-cartbox-summary").fadeIn(0);
+    // }
+    //   ,function(){
+    //       jQuery(this).find(".aa-cartbox-summary").fadeOut(0);
+    //   }
+    //  );   
   
   /* ----------------------------------------------------------- */
   /*  2. TOOLTIP

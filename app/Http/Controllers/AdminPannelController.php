@@ -265,8 +265,13 @@ class AdminPannelController extends Controller
     function CustomizeProduct(Request $req){
 
         $id = $req->id;
-
-        $totalRow = Product::count();
+        $category = $req->category;
+       
+        if( $req->category ){
+            $totalRow = Product::where('categoryId', '=', $category)->count();
+        }else{
+            $totalRow = Product::count();
+        }
         $total=$totalRow;
         $totalRow = floor($totalRow/5);
 
@@ -298,7 +303,8 @@ class AdminPannelController extends Controller
             $countbycategory = Product::where('categoryId', '=', $req->category)->count();
 
             if($req->category && $countbycategory>0){
-                $product = Product::where('categoryId', '=', $req->category)->skip(($id-1)*5)->take(5)->get();
+                $product = Product::where('categoryId', '=', $req->category)->take(5)->get();
+                //return $req->category;
                 return view('Admin.CustomizeProduct', ['product' => $product, 'startPoint' => $startPoint, 'totalRow' => $totalRow, 'clickedId' =>$id, 'total' => $total, 'category' => $category ]);
             }
 

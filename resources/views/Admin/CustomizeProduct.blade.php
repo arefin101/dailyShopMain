@@ -73,7 +73,7 @@
     <a style="text-decoration:none" href="{{route('Home')}}">Home &nbsp </a> >
     <a style="pointer-events: none" href="">&nbsp Customize Product</a>
     <div style="float:right">
-    <button class="btn btn-info" onClick="window.location.reload();"><i class="la la-refresh" aria-hidden="true"></i>&nbsp Page Reload</button>
+    <button class="btn btn-info" onClick="window.location.reload();"><i class="la la-refresh" aria-hidden="true"></i>&nbsp Refresh</button>
         <a class="btn btn-primary" href="{{route('Home')}}">Home</a>
     </div>
     <br>
@@ -91,7 +91,7 @@
                     </div>
                 @endif
                 <div class="col-md-2">
-                <button class="btn" style="border-color:blue; margin-left:35px" onClick="window.location.reload();"><i style="color:blue" class="la la-refresh" aria-hidden="true">&nbsp Reload Page</i></button>
+                <button class="btn" style="border-color:blue; margin-left:35px" onClick="window.location.reload();"><i style="color:blue" class="la la-refresh" aria-hidden="true">&nbsp Refresh</i></button>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-2"><input id="target" class="form-control" type="text" placeholder="Search Product......"></div>
@@ -176,7 +176,7 @@
                     <div class="mb-3 button-group">
                         <div class="btn-group" aria-label="First group">
                             @for( $i = $startPoint; $i <= ceil($total/5); $i++)
-                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => $i]) }}">{{$i}}</a>
+                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => $i, 'category' => Request::get('category') ]) }}">{{$i}}</a>
                             @endfor
                         </div>
                     </div>
@@ -184,17 +184,17 @@
                     <div class="mb-3 button-group">
                         <div class="btn-group" aria-label="First group">
                             @if($clickedId > 3)
-                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => 1]) }}">1..</a>
+                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => 1, 'category' => Request::get('category') ]) }}">1..</a>
                             @else
-                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => 1]) }}">1</a>
+                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => 1, 'category' => Request::get('category') ]) }}">1</a>
                             @endif
                             @for( $i = $startPoint; $i < ($startPoint+3); $i++)
-                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => $i]) }}">{{$i}}</a>
+                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => $i, 'category' => Request::get('category') ]) }}">{{$i}}</a>
                             @endfor
                             @if($clickedId > $totalRow-3)
-                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => $totalRow]) }}">{{$totalRow}}</a>
+                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => $totalRow, 'category' => Request::get('category') ]) }}">{{$totalRow}}</a>
                             @else
-                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => $totalRow]) }}">...{{$totalRow}}</a>    
+                                <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('CustomizeProduct', ['id' => $totalRow, 'category' => Request::get('category') ]) }}">...{{$totalRow}}</a>    
                             @endif
                         </div> 
                     </div>
@@ -223,8 +223,8 @@
                 .then((willDelete) => {
                     if (willDelete) {
                         $.ajax({
-                            url:`https://scenic-north-cascades-18021.herokuapp.com/api/deleteProduct/${id}`,
-                            //url:`http://127.0.0.1:8000/api/deleteProduct/${id}`,
+                            //url:`https://scenic-north-cascades-18021.herokuapp.com/api/deleteProduct/${id}`,
+                            url:`http://127.0.0.1:8000/api/deleteProduct/${id}`,
                             method:"Delete",
                             complete:function(xmlHttp,status){
                                 if(xmlHttp.status==204)
@@ -257,8 +257,8 @@
                     $(`#blocked${id}`).html("Unblock")
                 }
                 $.ajax({
-                    url:`https://scenic-north-cascades-18021.herokuapp.com/api/blockProduct/${id}`,
-                    //url: `http://127.0.0.1:8000/api/blockProduct/${id}`,
+                    //url:`https://scenic-north-cascades-18021.herokuapp.com/api/blockProduct/${id}`,
+                    url: `http://127.0.0.1:8000/api/blockProduct/${id}`,
                     method: "Put",
 
                     complete:function(xmlHttp, status){
@@ -293,7 +293,7 @@
                             str+="<tr id='deletedRow"+data[i].productId+"'>"
                             str+="<td class='hidden-xs' id='done"+data[i].productId+"]'>"+data[i].productId+"</td>"
                             str+="<td id='done"+data[i].productId+"'>"+data[i].productName+"</td>"
-                            str+="<td class='hidden-xs' style='word-wrap: break-word' id='done"+data[i].description+"}'>{{$item['description']}}</td>"
+                            str+="<td class='hidden-xs' style='word-wrap: break-word' id='done"+data[i].description+"}'>"+data[i].description+"</td>"
                             if(JSON.stringify(data[i].picture)==JSON.stringify("defaultP.jpg")){
                                 str+="<td id='done"+data[i].productId+"'>"
                                 str+="<img id='myImg' src='assets/img/"+data[i].picture+"' alt='your image' class='thumb picture-xs picture-nm'>"
@@ -305,8 +305,8 @@
                                 str+="</td>"
                             }
                             str+="<td class='hidden-xs' scope='row'>"+data[i].productId+"</td>"
-                            str+="<td class='hidden-xs' id='done{{$item['productId']}}'>"+data[i].buyingPrice+"</td>"
-                            str+="<td class='hidden-xs' id='done{{$item['productId']}}'>"+data[i].sellingPrice+"</td>"
+                            str+="<td class='hidden-xs' id='done"+data[i].productId+"'>"+data[i].buyingPrice+"</td>"
+                            str+="<td class='hidden-xs' id='done"+data[i].productId+"'>"+data[i].sellingPrice+"</td>"
                             str+="<td id='quantity"+data[i].productId+"'>"+data[i].productId+"</td>"
                             str+="<td>"
                             str+="<a class='btn btn-primary' href='/update_product/"+data[i].productId+"'>Update</a> <br>"
@@ -331,11 +331,10 @@
 
         });
 
-        $(document).ready(function(){
             let searchParams = new URLSearchParams(window.location.search)
+            var id = searchParams.get('id')
             $('#category').change(function(){
                 window.location.href = '/customize_product?id='+ searchParams.get('id') + '&category=' + $(this).val();
-            });
         });
 
     </script>
