@@ -37,3 +37,4 @@ Route::get('searchProduct', [ProductApiController::class, 'SearchProduct']);
 
 Route::get('getCart', [CartApiController::class, 'GetCart']);
 Route::post('addToCart/{id}/{userName}', [CartApiController::class, 'AddToCart']);
+Route::put('update/{userName}/{cartId}/{updatedQuantity}', [CartApiController::class, 'Update']);

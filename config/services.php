@@ -45,13 +45,13 @@ return [
     'facebook' => [
         'client_id'     => '516537189462699',
         'client_secret' => 'd56dde4fe1e439f59274c6d912619bf9',
-        'redirect'      => 'http://localhost:8000/login_with_facebook/callback',
+        'redirect'      => 'http://scenic-north-cascades-18021.herokuapp.com/login_with_facebook/callback',
     ],
 
     'google' => [
         'client_id'     => '199493034609-kn0uplfhr666lcm146a37r7d230j9q1e.apps.googleusercontent.com',
         'client_secret' => 'MnPvdbVhv5oX35AeBGFjnLoS',
-        'redirect'      => 'http://localhost:8000/login_with_google/callback',
+        'redirect'      => 'http://scenic-north-cascades-18021.herokuapp.com/login_with_google/callback',
     ],
 
 ];

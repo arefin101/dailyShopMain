@@ -82,7 +82,7 @@
                            Buy Now
                         </button> &nbsp 
                         </form>
-                        <button href="{{route('Cart')}}" class="aa-add-to-cart-btn does" id="AddtoCart">Add To Cart</button>
+                        <a href="{{route('Cart')}}" class="aa-add-to-cart-btn does" id="AddtoCart">Add To Cart</a>
                         </div>
                     </div>
                     </div>
@@ -198,9 +198,10 @@
                     "picture": '{{ $product['picture'] }}'
                 },
                 complete:function(xmlHttp,status){
-                    if(xmlHttp.status==201)
+                    if(xmlHttp.status==200)
                     {
-                        window.location = '{{ route('Cart') }}';
+                        var dd = xmlHttp.responseText
+                        window.location = '/cart?total='+dd;
                     }
                     else
                     {

@@ -151,9 +151,15 @@
                <!-- cart box -->
               <div class="aa-cartbox">
                 <a class="aa-cart-link" href="{{route('Cart')}}">
+                  @if(Session::has('cart'))
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
-                  <span class="aa-cart-notify">2</span>
+                  <span class="aa-cart-notify">{{Session::get('cart')}}</span>
+                  @else
+                  <span class="fa fa-shopping-basket"></span>
+                  <span class="aa-cart-title">SHOPPING CART</span>
+                  <span class="aa-cart-notify">0</span>
+                  @endif
                 </a>
                 <div class="aa-cartbox-summary">
                   <ul>

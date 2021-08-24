@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Customer;
+use App\Models\Cart;
 use Socialite;
 use Exception;
 use Auth;
@@ -35,6 +36,7 @@ class UserAuthController extends Controller
                 $request->session()->put('LoggedUser', $user->name);
                 $request->session()->put('userType', 'Customer');
                 $request->session()->put('userNames', $userName);
+                session()->put('cart', Cart::where('userName', session()->get('userNames'))->count());
                 if(session()->has('idd')){
                     return redirect()->route('ProductDetail' ,['id' => session()->get('idd'), 'userId' => session()->get('LoggedUser') ]);
                 }

@@ -116,8 +116,8 @@
                 var name = this.value
                 $("#data").html("")
                 $.ajax({
-                    url:`https://scenic-north-cascades-18021.herokuapp.com/api/searchCategory`,
-                    //url:`http://127.0.0.1:8000/api/searchCategory`,
+                    //url:`https://scenic-north-cascades-18021.herokuapp.com/api/searchCategory`,
+                    url:`http://127.0.0.1:8000/api/searchCategory`,
                     method:"Get",
                     data:{query:name},
                     complete:function(xmlHttp,status){
@@ -204,8 +204,8 @@
                 var categoryId=$(this).data('id')
 
                 $.ajax({
-                    url:`https://scenic-north-cascades-18021.herokuapp.com/api/updateCategory/${categoryId}`,
-                    //url:`http://127.0.0.1:8000/api/updateCategory/${categoryId}`,
+                    //url:`https://scenic-north-cascades-18021.herokuapp.com/api/updateCategory/${categoryId}`,
+                    url:`http://127.0.0.1:8000/api/updateCategory/${categoryId}`,
                     method:"PUT",
                     data:{
                         "catehoryId": categoryId,
@@ -231,8 +231,8 @@
                 var categoryId=$(this).data('id')
 
                 $.ajax({
-                    url:`https://scenic-north-cascades-18021.herokuapp.com/api/deleteCategory/${categoryId}`,
-                    //url:`http://127.0.0.1:8000/api/deleteCategory/${categoryId}`,
+                    //url:`https://scenic-north-cascades-18021.herokuapp.com/api/deleteCategory/${categoryId}`,
+                    url:`http://127.0.0.1:8000/api/deleteCategory/${categoryId}`,
                     method:"Delete",
                     complete:function(xmlHttp,status){
                         if(xmlHttp.status==204)

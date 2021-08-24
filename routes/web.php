@@ -27,7 +27,6 @@ Route::get('/', function () {
                         ->whereNotNull('products.categoryId')
                         ->distinct()
                         ->get();
-    //return $productCategory;
     return view('index', ['category' => $category, 'product' => $product, 'productCategory' => $productCategory, 'admin' => $admin ] );
 
 
@@ -95,7 +94,9 @@ Route::middleware('eachCartPage')->group( function(){
     Route::get("product_detail", [CartController::class, 'ProductDetail'])->name('ProductDetail');
     Route::post("product_detail", [CartController::class, 'ProductDetails'])->name('ProductDetails');
     Route::get("cart", [CartController::class, 'Cart'])->name('Cart');
+    Route::post("cart", [CartController::class, 'UpdateCart'])->name('UpdateCart');
     Route::get("checkout", [CartController::class, 'CheckOut'])->name('CheckOut');
+    Route::post("checkout", [CartController::class, 'PlaceOrder'])->name('PlaceOrder');
 
 } );
 

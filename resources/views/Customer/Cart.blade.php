@@ -10,6 +10,7 @@
            <div class="cart-view-table">
              <form action="">
                <div class="table-responsive">
+               <a href="{{ route('index') }}" class="btn btn-lg btn-primary aa-cart-view-btn" style="border-radius:0px; padding:13px; float:right; margin-bottom:20px"></i>Add More Product&nbsp<i class="fa fa-smile-o fa-lg" aria-hidden="true"></i></a>
                   <table class="table">
                     <thead>
                       <tr>
@@ -30,10 +31,10 @@
                         @else
                         <td><a href="#"><img src="data:image/png;base64, {{ $item->picture }}" alt="img"></a></td>
                         @endif
-                        <td><a class="aa-cart-title" href="#">{{$item->productName}}</a></td>
+                        <td><a class="aa-cart-title" href="#">{{$item->productName}} ({{$item->color}})</a></td>
                         <td>{{$item->price}}</td>
-                        <td><input class="aa-cart-quantity" type="number" value="{{$item->quantity}}"></td>
-                        <td>{{$item->totalPrice}}</td>
+                        <td><input class="aa-cart-quantity quantity" type="number" id="{{$item->id}}" data-id="{{$item->id}}" value="{{$item->quantity}}"></td>
+                        <td>{{$item->price * $item->quantity}}</td>
                         <tr>
                         @endforeach
                         <td colspan="6" class="aa-cart-view-bottom">
@@ -49,17 +50,17 @@
                 </div>
              </form>
              <!-- Cart Total view -->
-             <div class="cart-view-total">
+             <div class="cart-view-total" style="width:50%">
                <h4>Cart Totals</h4>
                <table class="aa-totals-table">
                  <tbody>
                    <tr>
                      <th>Subtotal</th>
-                     <td>$450</td>
+                     <td>{{$subtotal}}</td>
                    </tr>
                    <tr>
                      <th>Total</th>
-                     <td>$450</td>
+                     <td>{{$subtotal}}</td>
                    </tr>
                  </tbody>
                </table>
@@ -71,5 +72,32 @@
      </div>
    </div>
  </section>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+ <script>
+
+$(document).ready(function(){
+    $(".quantity").on('change keyup', function() {
+        //alert($(this).data('id'));
+        var userName = '{{Session::get('userNames')}}';
+        var cartId = $(this).data('id');
+        var update = $(`#${cartId}`).val();
+        //alert(cartId)
+        $.ajax({
+          url: `http://127.0.0.1:8000/api/update/${userName}/${cartId}/${update}`,
+          method: "put",
+          complete:function(xmlHttp, status){
+            if(xmlHttp.status==200){
+              //alert('ok')
+            }else{
+              alert("error")
+            }
+          }
+        })
+    }); 
+});
+
+ </script>
 
  @stop
