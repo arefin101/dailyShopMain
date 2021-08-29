@@ -30,28 +30,28 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    // 'facebook' => [
-    //     'client_id'     => '516537189462699',
-    //     'client_secret' => 'd56dde4fe1e439f59274c6d912619bf9',
-    //     'redirect'      => 'http://localhost:8000/login_with_facebook/callback',
-    // ],
-
-    // 'google' => [
-    //     'client_id'     => '412935369771-geupc7cn6gbrrfcnqrfsncd386gl0v5i.apps.googleusercontent.com',
-    //     'client_secret' => '94R7igywSRd3RmdXWjIqZYYO',
-    //     'redirect'      => 'http://localhost:8000/login_with_google/callback',
-    // ],
-
     'facebook' => [
         'client_id'     => '516537189462699',
         'client_secret' => 'd56dde4fe1e439f59274c6d912619bf9',
-        'redirect'      => 'http://scenic-north-cascades-18021.herokuapp.com/login_with_facebook/callback',
+        'redirect'      => 'http://localhost:8000/login_with_facebook/callback',
     ],
 
     'google' => [
-        'client_id'     => '199493034609-kn0uplfhr666lcm146a37r7d230j9q1e.apps.googleusercontent.com',
-        'client_secret' => 'MnPvdbVhv5oX35AeBGFjnLoS',
-        'redirect'      => 'http://scenic-north-cascades-18021.herokuapp.com/login_with_google/callback',
+        'client_id'     => '412935369771-geupc7cn6gbrrfcnqrfsncd386gl0v5i.apps.googleusercontent.com',
+        'client_secret' => '94R7igywSRd3RmdXWjIqZYYO',
+        'redirect'      => 'http://localhost:8000/login_with_google/callback',
     ],
+
+    // 'facebook' => [
+    //     'client_id'     => '516537189462699',
+    //     'client_secret' => 'd56dde4fe1e439f59274c6d912619bf9',
+    //     'redirect'      => 'https://dailyshop.thevoice24.com/login_with_facebook/callback',
+    // ],
+
+    // 'google' => [
+    //     'client_id'     => '199493034609-kn0uplfhr666lcm146a37r7d230j9q1e.apps.googleusercontent.com',
+    //     'client_secret' => 'MnPvdbVhv5oX35AeBGFjnLoS',
+    //     'redirect'      => 'https://dailyshop.thevoice24.com/login_with_google/callback',
+    // ],
 
 ];
