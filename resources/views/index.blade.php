@@ -79,7 +79,7 @@
                 <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn" href="#" id="dropdownMenu1">
-                      <img src="img/flag/bd.jpg" alt="english flag">বাংলাদেশ
+                      <img src="img/flag/bd.jpg" alt="english flag">বাংলাদেশsss
                       <!-- <span class="caret"></span> -->
                     </a>
                   </div>
