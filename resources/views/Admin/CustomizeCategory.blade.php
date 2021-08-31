@@ -116,7 +116,7 @@
                 var name = this.value
                 $("#data").html("")
                 $.ajax({
-                    //url:`https://scenic-north-cascades-18021.herokuapp.com/api/searchCategory`,
+                    //url:`https://dailyshop.thevoice24.com/api/searchCategory`,
                     url:`http://127.0.0.1:8000/api/searchCategory`,
                     method:"Get",
                     data:{query:name},
@@ -204,7 +204,7 @@
                 var categoryId=$(this).data('id')
 
                 $.ajax({
-                    //url:`https://scenic-north-cascades-18021.herokuapp.com/api/updateCategory/${categoryId}`,
+                    //url:`https://dailyshop.thevoice24.com/api/updateCategory/${categoryId}`,
                     url:`http://127.0.0.1:8000/api/updateCategory/${categoryId}`,
                     method:"PUT",
                     data:{
@@ -231,7 +231,7 @@
                 var categoryId=$(this).data('id')
 
                 $.ajax({
-                    //url:`https://scenic-north-cascades-18021.herokuapp.com/api/deleteCategory/${categoryId}`,
+                    //url:`https://dailyshop.thevoice24.com/api/deleteCategory/${categoryId}`,
                     url:`http://127.0.0.1:8000/api/deleteCategory/${categoryId}`,
                     method:"Delete",
                     complete:function(xmlHttp,status){
