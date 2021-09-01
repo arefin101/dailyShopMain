@@ -389,6 +389,18 @@
     </div>
   </section>
   <!-- / Promo section -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+        $('.do').click(function(){
+          //alert(`#done${$(this).attr('id')}`)
+          $(".in").removeClass('in active')
+          $(`#done${$(this).attr('id')}`).addClass('in active')
+          //$(`#done${$(this).attr('id')}`).addClass('in active')
+      })
+    })
+  </script>
+
   <!-- Products section -->
   <section id="aa-product">
     <div class="container">
@@ -401,9 +413,9 @@
                  <ul class="nav nav-tabs aa-products-tab">
                    @for($i=0; $i < count($productCategory); $i++)
                     @if($i==0)
-                      <li class="active"><a href="#{{ $productCategory[$i]['categoryName'] }}" data-toggle="tab">{{ $productCategory[$i]['categoryName'] }}</a></li>
+                      <li id="{{ $productCategory[$i]['categoryId'] }}" class="active do"><a href="#{{ $productCategory[$i]['categoryId'] }}" data-toggle="tab">{{ $productCategory[$i]['categoryName'] }}</a></li>
                     @else
-                      <li><a href="#{{ $productCategory[$i]['categoryName'] }}" data-toggle="tab">{{ $productCategory[$i]['categoryName'] }}</a></li>
+                      <li><a id="{{ $productCategory[$i]['categoryId'] }}" class="do" href="#{{ $productCategory[$i]['categoryId'] }}" data-toggle="tab">{{ $productCategory[$i]['categoryName'] }}</a></li>
                     @endif
                    @endfor
                     <!-- <li class="active"><a href="#men" data-toggle="tab">Men</a></li>
@@ -417,9 +429,9 @@
 
                     @for($i=0; $i < count($productCategory); $i++)
                     @if($i == 0)
-                    <div class="tab-pane fade in active" id="{{ $productCategory[$i]['categoryName'] }}">
+                    <div class="tab-pane fade in active" id="done{{ $productCategory[$i]['categoryId'] }}">
                     @else
-                    <div class="tab-pane fade" id="{{ $productCategory[$i]['categoryName'] }}">
+                    <div class="tab-pane fade" id="done{{ $productCategory[$i]['categoryId'] }}">
                     @endif
                       <ul class="aa-product-catg">
                         <!-- start single product item -->
