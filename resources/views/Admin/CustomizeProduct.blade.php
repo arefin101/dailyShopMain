@@ -223,8 +223,8 @@
                 .then((willDelete) => {
                     if (willDelete) {
                         $.ajax({
-                            //url:`https://scenic-north-cascades-18021.herokuapp.com/api/deleteProduct/${id}`,
-                            url:`http://127.0.0.1:8000/api/deleteProduct/${id}`,
+                            url:`https://dailyshop.thevoice24.com/api/deleteProduct/${id}`,
+                            //url:`http://127.0.0.1:8000/api/deleteProduct/${id}`,
                             method:"Delete",
                             complete:function(xmlHttp,status){
                                 if(xmlHttp.status==204)
@@ -257,8 +257,8 @@
                     $(`#blocked${id}`).html("Unblock")
                 }
                 $.ajax({
-                    //url:`https://scenic-north-cascades-18021.herokuapp.com/api/blockProduct/${id}`,
-                    url: `http://127.0.0.1:8000/api/blockProduct/${id}`,
+                    url:`https://dailyshop.thevoice24.com/api/blockProduct/${id}`,
+                    //url: `http://127.0.0.1:8000/api/blockProduct/${id}`,
                     method: "Put",
 
                     complete:function(xmlHttp, status){
@@ -280,7 +280,7 @@
             var name = this.value
             $("#data").html("")
             $.ajax({
-                url:`https://scenic-north-cascades-18021.herokuapp.com/api/searchProduct`,
+                url:`https://dailyshop.thevoice24.com/api/searchProduct`,
                 //url:`http://127.0.0.1:8000/api/searchProduct`,
                 method:"Get",
                 data:{query:name},
