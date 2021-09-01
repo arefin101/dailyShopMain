@@ -182,6 +182,7 @@
 
     <script>
         $('#AddtoCart').click(function(){
+            //alert('dddd')
             var quantity = $('#quantity').find(":selected").text();
             let searchParams = new URLSearchParams(window.location.search)
             var id = searchParams.get('id')
@@ -205,7 +206,7 @@
                     }
                     else
                     {
-                        alert("Error");
+                        return false;
                     }
                 }
             })

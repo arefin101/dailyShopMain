@@ -60,7 +60,8 @@ class CartController extends Controller
             session()->put('cart', Cart::where('userName', session()->get('userNames'))->count());
         }
         
-        if($cart->save() && session()->has('LoggedUser')){
+        if(session()->has('LoggedUser')){
+            $cart->save();
             session()->put('cart', Cart::where('userName', session()->get('userNames'))->count());
             return redirect()->route('CheckOut');
         }else{
@@ -75,15 +76,26 @@ class CartController extends Controller
         }else{
             session()->put('cart',  $req->total);
         }
-        $id= (string)session()->get('userNames');
-        //return $id;
-        $sql="select id, productName, color, picture, quantity, price from carts where userName={$id}";
-        $cart = DB::select(DB::raw($sql));
-        $subtotal = 0;
-        foreach($cart as $item){
-            $subtotal = $subtotal + ($item->price * $item->quantity);
+        if(session()->has('LoggedUser')){
+
+            $id= (string)session()->get('userNames');
+            $sql="select id, productName, color, picture, quantity, price from carts where userName={$id}";
+            $cart = DB::select(DB::raw($sql));
+            $subtotal = 0;
+
+            foreach($cart as $item){
+                $subtotal = $subtotal + ($item->price * $item->quantity);
+            }
+            return view('Customer.Cart',['cart' => $cart, 'subtotal' => $subtotal]);
+        }else{
+            return redirect()->route('login', ['idd' => 1, 'ids' =>  $req->id ]);
         }
-        return view('Customer.Cart',['cart' => $cart, 'subtotal' => $subtotal]);
+        
+        //if(session()->has('LoggedUser')){
+           // return view('Customer.Cart',['cart' => $cart, 'subtotal' => $subtotal]);
+        //}
+        //return redirect()->route('login', ['idd' => 1, 'ids' =>  $req->id ]);
+        //return view('Customer.Cart',['cart' => $cart, 'subtotal' => $subtotal]);
     }
 
     function UpdateCart(){
